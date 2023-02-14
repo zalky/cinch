@@ -19,13 +19,13 @@
 
 (defn conjs
   "Like conj but always set."
-  [set x]
-  (conj (or set #{}) x))
+  [set & args]
+  (apply conj (or set #{}) args))
 
 (defn conjv
   "Like conj but always vec."
-  [v x]
-  (conj (or v []) x))
+  [v & args]
+  (apply conj (or v []) args))
 
 #?(:clj
    (defn queue
@@ -51,17 +51,16 @@
     :else     (hash-set v1 v2)))
 
 (defn assoc-nil
-  "assoc iff existing value is `nil`, including when (contains? e nil)
-  returns true."
-  [e attr v]
-  (update e attr #(if (some? %) % v)))
+  "assoc iff existing value is `nil`, or not in map."
+  [m attr v]
+  (update m attr #(if (some? %) % v)))
 
 (defn update-contains
   "Only update if value exists at the given attr."
-  [e attr f & args]
-  (if (contains? e attr)
-    (apply update e attr f args)
-    e))
+  [m attr f & args]
+  (if (contains? m attr)
+    (apply update m attr f args)
+    m))
 
 (defn map-all
   "Like map but exhausts all colls."

@@ -1,6 +1,6 @@
 .PHONY: npm test-clj test-cljs test
 
-version-number  = 0.1.0
+version-number  = 0.1.1
 group-id        = io.zalky
 artifact-id     = cinch
 description     = Utility functions that make things a cinch
